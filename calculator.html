@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{background-color:gray;}
+        .res{background-color: red;
+        color:black;}
+        .output {
+            display: grid;
+            width: 100%;
+            height: 500px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        input {
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            background-color: rgba(155,155,155,0.3);
+            color:ghostwhite;
+            font-size:1.5rem ;
+          
+        }
+
+        .cal {
+            width: 50%;
+          transform: skew(-15deg);
+        overflow: hidden;
+        border-radius: 25px;
+        background-color: rgba(0,0,0,0.4);
+        height:600px;
+        }
+
+        body {
+            background-image: url(modern-gold-background-free-vector.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        button{width:150px;
+        height:70px;font-size: 3rem;
+    background-color: darkgray;
+color:ghostwhite;border:none;
+border-radius: 20px;
+cursor: pointer;}
+.operator{background-color:orange;
+color:teal;
+font-size: 3rem;}
+.btn:hover{transform: scale(1.1);background-color:lightgreen;
+    color:wheat;
+}
+.res {width: 300px;
+grid-column: span 2;}
+    </style>
+
+
+</head>
+
+<body>
+    <div class="cal">
+        <div class="input"><input type="text" id="inp" readonly></div>
+        <div class="output">
+            <button class="operator btn" onclick="func('+')">+</button>
+            <button class="btn" onclick="func('7')">7</button>
+            <button class="btn" onclick="func('8')">8</button>
+            <button class="btn" onclick="func('9')">9</button>
+            <button class="operator btn"  onclick="func('-')">-</button>
+            <button class="btn" onclick="func('4')">4</button>
+            <button class="btn" onclick="func('5')">5</button>
+            <button class="btn" onclick="func('6')">6</button>
+            <button class="operator btn"  onclick="func('*')">*</button>
+            <button class="btn" onclick="func('1')">1</button>
+            <button class="btn" onclick="func('2')">2</button>
+            <button class="btn" onclick="func('3')">3</button>
+            <button class="operator btn"  onclick="func('/')">/</button>
+            <button class="btn" onclick="func('0')">0</button>
+            <button class="btn" onclick="func('.')">.</button>
+             <button class="btn" onclick="func('00')">00</button>
+            <button class="operator btn"  onclick="clr()">C</button>
+            <button class="operator btn" onclick="del()">DEL</button>
+<button class="res btn" onclick="calc()">=</button>
+        </div>
+    </div>
+</body>
+<script>
+    let inp = document.getElementById("inp");
+    function func(input) {
+
+        inp.value += input;
+    }
+    function clr() { inp.value = ""; }
+    function calc() {
+        try{
+        inp.value = eval(inp.value);}
+        catch{
+            inp.value="ERROR!";
+            setTimeout(clr,1500);
+        }
+    }
+    function del() {
+    inp.value = inp.value.slice(0, -1);
+}
+
+</script>
+
+</html>

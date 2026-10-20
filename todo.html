@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title><style>
+h1{color:blue;
+text-align: center;}
+input{display:block;
+margin:auto;
+border:none;
+border-bottom: 1px solid grey;
+width:25%;
+height:50px;
+font-size: 30px;color:rgb(10, 81, 211);}
+input::placeholder{color:rgb(10, 81, 211);
+text-align: center;}
+input:focus{outline: none;}
+.btn{display: block;
+    border-radius: 15px;
+    margin:auto;
+    border:none;
+    width:130px;
+    height:45px;
+    margin-top: 10px;
+    font-size: 20px;
+    background-color: blue;
+    color:white;
+}
+table{
+    width:65%;
+    margin:auto;
+    text-align: center;
+    border-collapse: collapse;
+    color: rgb(10, 81, 211);
+    margin-top: 10px;
+    font-size: 25px;border: 1px solid lightblue;
+}
+
+thead{color:blue;}
+thead,tr{height: 50px;}
+table button{
+    margin: auto;
+    display: block;
+    width:70px;
+    height:40px;
+    font-size: 25px;
+    color:white;
+    background-color:red;
+    border:none;
+    border-radius: 5px;
+}
+input[type="checkbox"]{
+    width:20px;
+    height: 20px;
+   
+ 
+}
+
+    </style>
+</head>
+
+<body><h1>TO-DO APP</h1>
+    <input type="text" id="inp" placeholder="enter your todo.....">
+    <button onclick="save()" class="btn">Add Task</button>
+    <table>
+        <thead>
+        <tr>
+            <th>STATUS</th>
+            <th>DISCRIPTION</th>
+            <th>DELETE</th>
+        </tr></thead>
+        <tbody id="result"></tbody>
+    </table>
+    <script>
+          let task = JSON.parse(localStorage.getItem("myTodos")) || [];
+          res();
+        function save() {
+            let inp = document.getElementById("inp");
+            let sinp = document.getElementById("inp").value;
+            inp.value = "";
+            if (sinp === "") {
+                alert("enter task.....");
+                return;
+            }
+            const tasks = { content: sinp, completed:false};
+            task.push(tasks);
+             updateLocalStorage();
+            res();
+    
+        }
+        function res() {
+            let text = "";
+            for (let i = 0; i < task.length; i++) {
+                let t = task[i];
+                let isChecked = t.completed ? "checked" : "";
+                let textStyle = t.completed ? "completed" : "";
+                text += `<tr>
+                    <td><input type="checkbox" ${isChecked} onclick="toggleStatus(${i})"></td>
+                    <td class="${textStyle}">${t.content.toUpperCase()}</td>
+                    <td><button onclick="erase(${i})">X</button></td>
+                </tr>`;
+            }
+document.getElementById("result").innerHTML=text;
+        }
+        function toggleStatus(index) {
+            task[index].completed = !task[index].completed; // Switch true to false or vice versa
+            updateLocalStorage(); // Save updated state
+            res(); // Re-render table
+        }
+        function erase(index){
+task.splice(index,1);
+ updateLocalStorage();
+res();
+        }
+          function updateLocalStorage() {
+        localStorage.setItem("myTodos", JSON.stringify(task));
+    }
+    </script>
+</body>
+
+</html>
